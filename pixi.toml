@@ -1,0 +1,17 @@
+[workspace]
+authors = ["harunatomono <114322187+harunatomono@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "project_microbial-metabolism"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.15.2,<3.16"
+ipykernel = ">=7.4.0,<8"
+jupyterlab = ">=4.6.6,<5"
+ipywidgets = ">=8.1.9,<9"
+plotnine = ">=0.15.9,<0.16"
+pandas = ">=3.1.1,<4"
+numpy = ">=2.5.4,<3"
