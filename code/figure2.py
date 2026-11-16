@@ -1,4 +1,4 @@
-# fig 2 from the kim et al paper, degree dists for the 5 reaction graphs
+# fig 2 for our project from the network stuff paper, degree dists for the 5 reaction graphs
 import numpy as np
 import openpyxl
 import matplotlib.pyplot as plt
@@ -59,7 +59,7 @@ for i in range(5):
             fontweight="bold", style="italic")
 
     for j, (what, col, _) in enumerate(kinds):
-        #HOW TO GET NUMBERS TO LINE UP??? THEY ROUND SOMETIMES BUT OTHER TIMES THEY JUST TRUNCATE????
+        #HOW TO GET NUMBERS TO LINE UP??? THEY ROUND SOMETIMES BUT OTHER TIMES THEY JUST TRUNCATE???? Should we round or truncate? does it matter?
         g = np.trunc(gam[what] * 100) / 100
         ax.text(0.97, 0.93 - 0.09 * j, "$\\gamma$ (%s) = %.2f" % (what, g),
                 transform=ax.transAxes, color=col, ha="right", va="top",
