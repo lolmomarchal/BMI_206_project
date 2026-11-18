@@ -1,11 +1,5 @@
 # %% [markdown]
 # # figure 2: degree distributions of the reaction-centric graphs
-
-# for each species we need:
-# 1. the directed reaction graph (reactions = nodes, arcs = shared metabolites)
-# 2. in-, out- and total-degree per reaction
-# 3. pr(k) = fraction of reactions with degree k
-# 4. a log-log linear regression of pr(k) on k. the slope is gamma.
 # %%
 import gzip
 import re
@@ -283,14 +277,18 @@ def match_ids(sbml_ids, xlsx_ids) -> dict:
     return out
 
 # %%
-reactions, comp = read_sbml(DATA / f'{model}.biggr.sbml.gz')
-edges_sbml = build_reaction_graph(reactions, comp)
-print(len(reactions), 'reactions in sbml ->', len(edges_sbml), 'arcs')
+for species, vals in SPECIES.items():
+    model, sheet, name = vals
+    print(name)
 
-# degree distribution from our own graph, for a direct comparison
-deg_sbml = node_degrees(edges_sbml)
-fit_sbml = fit_power_law(degree_distribution(deg_sbml))
+    reactions, comp = read_sbml(DATA / f'{model}.biggr.sbml.gz')
+    edges_sbml = build_reaction_graph(reactions, comp)
+    print(len(reactions), 'reactions in sbml ->', len(edges_sbml), 'arcs')
 
-# plot from our own sbml-derived graph
-panel_sbml = plot_degree_distribution(degree_distribution(deg_sbml), fit_sbml)
-panel_sbml
+    # degree distribution from our own graph, for a direct comparison
+    deg_sbml = node_degrees(edges_sbml)
+    fit_sbml = fit_power_law(degree_distribution(deg_sbml))
+
+    # plot from our own sbml-derived graph
+    panel_sbml = plot_degree_distribution(degree_distribution(deg_sbml), fit_sbml)
+    panel_sbml.show()
