@@ -1,7 +1,7 @@
 """One visual theme for every figure, taken from the slide deck.
 
 Deck palette: title blue #3F619E, accent teal #00665F, ink #172932, section-slide blue #E3EAF3.
-Titles/labels use Poppins (the deck font); DejaVu Sans is the per-glyph fallback (Greek, math).
+Fonts: Helvetica/Arial, falling back to matplotlib's default DejaVu Sans. All text is black.
 """
 from pathlib import Path
 import matplotlib as mpl
@@ -26,18 +26,15 @@ CAT = [BLUE, TEAL, AMBER, RED, PURPLE, SKY, INK, "#9AA5B1"]
 
 
 def apply():
-    import dataclasses
-    for f in (ASSETS / "fonts").glob("*.ttf"):
-        fm.fontManager.addfont(str(f))
-    # the three files register as "Poppins", "Poppins Medium", "Poppins SemiBold": merge into one family with weights
-    fm.fontManager.ttflist = [dataclasses.replace(e, name="Poppins") if "Poppins-" in e.fname else e
-                              for e in fm.fontManager.ttflist]
+    import logging
+    logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)   # silence missing-font warnings
     mpl.rcParams.update({
-        "font.family": ["Poppins", "DejaVu Sans"],
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Helvetica", "Arial", "DejaVu Sans"],   # first one installed wins; DejaVu ships with matplotlib
         "font.size": 10,
-        "text.color": INK, "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
-        "axes.edgecolor": MUTED, "axes.linewidth": 0.8,
-        "axes.titlesize": 11, "axes.titleweight": "medium", "axes.titlecolor": BLUE,
+        "text.color": "black", "axes.labelcolor": "black", "xtick.color": "black", "ytick.color": "black",
+        "axes.edgecolor": "black", "axes.linewidth": 0.8,
+        "axes.titlesize": 11, "axes.titleweight": "normal", "axes.titlecolor": "black",
         "axes.spines.top": False, "axes.spines.right": False,
         "axes.grid": False, "grid.color": GRID, "grid.linewidth": 0.6,
         "legend.frameon": False, "legend.fontsize": 8.5,
@@ -47,5 +44,11 @@ def apply():
     })
 
 
+def square(*axes):
+    """Make each x-y axes square (box aspect 1)."""
+    for ax in axes:
+        ax.set_box_aspect(1)
+
+
 def panel_label(ax, text, x=0.04, y=0.06, **kw):
-    ax.text(x, y, text, transform=ax.transAxes, fontsize=11, fontweight="medium", color=INK, **kw)
+    ax.text(x, y, text, transform=ax.transAxes, fontsize=11, color="black", **kw)

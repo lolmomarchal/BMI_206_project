@@ -1,121 +1,121 @@
 organism,kind,method,gamma,paper
-ecoli,total,log-log OLS,-1.2938846502877535,-1.29
-ecoli,total,log-log WLS (weight = count),-1.021620388066142,-1.29
-ecoli,total,log-log OLS (k seen in >= 2 nodes),-1.1006332334551043,-1.29
-ecoli,total,log-log OLS on cumulative,-2.3522869993297393,-1.29
+ecoli,total,log-log OLS,-1.2938846502877532,-1.29
+ecoli,total,log-log WLS (weight = count),-1.0216203880661425,-1.29
+ecoli,total,log-log OLS (k seen in >= 2 nodes),-1.1006332334551048,-1.29
+ecoli,total,log-log OLS on cumulative,-2.3522869993297384,-1.29
 ecoli,total,MLE (kmin = 1),-1.3917198357938834,-1.29
 ecoli,total,MLE (kmin by KS),-2.3683208350803127,-1.29
 ecoli,total,log-log OLS (log-binned),-1.4540189128286487,-1.29
 ecoli,total,MLE bounded (= Poisson GLM),-1.0870218907956266,-1.29
-ecoli,in,log-log OLS,-1.3160466775048862,-1.32
-ecoli,in,log-log WLS (weight = count),-1.2369592754846537,-1.32
+ecoli,in,log-log OLS,-1.3160466775048865,-1.32
+ecoli,in,log-log WLS (weight = count),-1.2369592754846535,-1.32
 ecoli,in,log-log OLS (k seen in >= 2 nodes),-1.223362748644155,-1.32
 ecoli,in,log-log OLS on cumulative,-2.3458581265907936,-1.32
 ecoli,in,MLE (kmin = 1),-1.5758750521766656,-1.32
 ecoli,in,MLE (kmin by KS),-1.7550937608457342,-1.32
-ecoli,in,log-log OLS (log-binned),-1.680159307775177,-1.32
+ecoli,in,log-log OLS (log-binned),-1.6801593077751786,-1.32
 ecoli,in,MLE bounded (= Poisson GLM),-1.3968821060328942,-1.32
 ecoli,out,log-log OLS,-1.5000164937499854,-1.5
-ecoli,out,log-log WLS (weight = count),-1.1374627323575175,-1.5
+ecoli,out,log-log WLS (weight = count),-1.1374627323575173,-1.5
 ecoli,out,log-log OLS (k seen in >= 2 nodes),-1.3134207301810852,-1.5
 ecoli,out,log-log OLS on cumulative,-2.561057113219557,-1.5
 ecoli,out,MLE (kmin = 1),-1.5391681491285503,-1.5
 ecoli,out,MLE (kmin by KS),-1.8557889398750844,-1.5
-ecoli,out,log-log OLS (log-binned),-1.93141132567161,-1.5
+ecoli,out,log-log OLS (log-binned),-1.931411325671611,-1.5
 ecoli,out,MLE bounded (= Poisson GLM),-1.2606939733647957,-1.5
-bsub,total,log-log OLS,-1.037675323651674,-1.03
+bsub,total,log-log OLS,-1.0376753236516736,-1.03
 bsub,total,log-log WLS (weight = count),-0.898299719957294,-1.03
 bsub,total,log-log OLS (k seen in >= 2 nodes),-0.7982489312727157,-1.03
-bsub,total,log-log OLS on cumulative,-2.0526617443441166,-1.03
+bsub,total,log-log OLS on cumulative,-2.052661744344116,-1.03
 bsub,total,MLE (kmin = 1),-1.3875763488932686,-1.03
 bsub,total,MLE (kmin by KS),-1.7767760994875283,-1.03
 bsub,total,log-log OLS (log-binned),-1.3465091022400195,-1.03
 bsub,total,MLE bounded (= Poisson GLM),-1.0653289019082708,-1.03
-bsub,in,log-log OLS,-1.1009848030199194,-1.1
+bsub,in,log-log OLS,-1.1009848030199199,-1.1
 bsub,in,log-log WLS (weight = count),-1.0403289724832019,-1.1
-bsub,in,log-log OLS (k seen in >= 2 nodes),-0.8910172338847475,-1.1
-bsub,in,log-log OLS on cumulative,-2.119616222924085,-1.1
+bsub,in,log-log OLS (k seen in >= 2 nodes),-0.8910172338847482,-1.1
+bsub,in,log-log OLS on cumulative,-2.119616222924086,-1.1
 bsub,in,MLE (kmin = 1),-1.5451131779941965,-1.1
 bsub,in,MLE (kmin by KS),-1.8933596278762512,-1.1
-bsub,in,log-log OLS (log-binned),-1.4857994616239207,-1.1
+bsub,in,log-log OLS (log-binned),-1.4857994616239214,-1.1
 bsub,in,MLE bounded (= Poisson GLM),-1.3039463300298075,-1.1
-bsub,out,log-log OLS,-1.12114742083026,-1.12
-bsub,out,log-log WLS (weight = count),-0.9524824363381122,-1.12
-bsub,out,log-log OLS (k seen in >= 2 nodes),-0.9936147392303442,-1.12
-bsub,out,log-log OLS on cumulative,-2.1750913372735816,-1.12
+bsub,out,log-log OLS,-1.1211474208302605,-1.12
+bsub,out,log-log WLS (weight = count),-0.9524824363381125,-1.12
+bsub,out,log-log OLS (k seen in >= 2 nodes),-0.9936147392303433,-1.12
+bsub,out,log-log OLS on cumulative,-2.175091337273582,-1.12
 bsub,out,MLE (kmin = 1),-1.5149326486399692,-1.12
 bsub,out,MLE (kmin by KS),-1.8702147709418135,-1.12
-bsub,out,log-log OLS (log-binned),-1.7040169189572092,-1.12
+bsub,out,log-log OLS (log-binned),-1.7040169189572096,-1.12
 bsub,out,MLE bounded (= Poisson GLM),-1.252658611039034,-1.12
-gmet,total,log-log OLS,-1.0375518873707692,-1.03
-gmet,total,log-log WLS (weight = count),-1.0109051241983131,-1.03
-gmet,total,log-log OLS (k seen in >= 2 nodes),-0.8950492185483471,-1.03
+gmet,total,log-log OLS,-1.0375518873707685,-1.03
+gmet,total,log-log WLS (weight = count),-1.0109051241983134,-1.03
+gmet,total,log-log OLS (k seen in >= 2 nodes),-0.8950492185483468,-1.03
 gmet,total,log-log OLS on cumulative,-2.1524495756816613,-1.03
 gmet,total,MLE (kmin = 1),-1.3938492405421743,-1.03
 gmet,total,MLE (kmin by KS),-1.6670733953666361,-1.03
-gmet,total,log-log OLS (log-binned),-1.2719442114176314,-1.03
+gmet,total,log-log OLS (log-binned),-1.2719442114176311,-1.03
 gmet,total,MLE bounded (= Poisson GLM),-1.115004190343806,-1.03
 gmet,in,log-log OLS,-1.1415674633331514,-1.14
-gmet,in,log-log WLS (weight = count),-1.1635743702391534,-1.14
-gmet,in,log-log OLS (k seen in >= 2 nodes),-1.015645191497101,-1.14
-gmet,in,log-log OLS on cumulative,-2.220318507765855,-1.14
+gmet,in,log-log WLS (weight = count),-1.1635743702391532,-1.14
+gmet,in,log-log OLS (k seen in >= 2 nodes),-1.0156451914971005,-1.14
+gmet,in,log-log OLS on cumulative,-2.220318507765854,-1.14
 gmet,in,MLE (kmin = 1),-1.559779328419634,-1.14
 gmet,in,MLE (kmin by KS),-6.907930521287374,-1.14
-gmet,in,log-log OLS (log-binned),-1.6711033574150969,-1.14
+gmet,in,log-log OLS (log-binned),-1.6711033574150977,-1.14
 gmet,in,MLE bounded (= Poisson GLM),-1.3564368218993832,-1.14
-gmet,out,log-log OLS,-1.1173496471536037,-1.11
-gmet,out,log-log WLS (weight = count),-1.1126563367863427,-1.11
-gmet,out,log-log OLS (k seen in >= 2 nodes),-0.9584893192937569,-1.11
-gmet,out,log-log OLS on cumulative,-2.242697524837557,-1.11
+gmet,out,log-log OLS,-1.117349647153603,-1.11
+gmet,out,log-log WLS (weight = count),-1.112656336786343,-1.11
+gmet,out,log-log OLS (k seen in >= 2 nodes),-0.9584893192937574,-1.11
+gmet,out,log-log OLS on cumulative,-2.2426975248375562,-1.11
 gmet,out,MLE (kmin = 1),-1.5348962629700573,-1.11
 gmet,out,MLE (kmin by KS),-2.434847791722054,-1.11
-gmet,out,log-log OLS (log-binned),-1.4504423747413957,-1.11
+gmet,out,log-log OLS (log-binned),-1.4504423747413964,-1.11
 gmet,out,MLE bounded (= Poisson GLM),-1.3198051862848634,-1.11
-kpneu,total,log-log OLS,-1.2170742311635472,-1.21
-kpneu,total,log-log WLS (weight = count),-1.0079922105048795,-1.21
-kpneu,total,log-log OLS (k seen in >= 2 nodes),-1.073073887623331,-1.21
-kpneu,total,log-log OLS on cumulative,-2.3584689875005953,-1.21
+kpneu,total,log-log OLS,-1.2170742311635474,-1.21
+kpneu,total,log-log WLS (weight = count),-1.007992210504879,-1.21
+kpneu,total,log-log OLS (k seen in >= 2 nodes),-1.0730738876233308,-1.21
+kpneu,total,log-log OLS on cumulative,-2.3584689875005957,-1.21
 kpneu,total,MLE (kmin = 1),-1.404859684907143,-1.21
 kpneu,total,MLE (kmin by KS),-3.4547375972819108,-1.21
 kpneu,total,log-log OLS (log-binned),-1.469342693105753,-1.21
 kpneu,total,MLE bounded (= Poisson GLM),-1.1163177579202739,-1.21
 kpneu,in,log-log OLS,-1.317865169600271,-1.31
-kpneu,in,log-log WLS (weight = count),-1.178285973752253,-1.31
-kpneu,in,log-log OLS (k seen in >= 2 nodes),-1.0984770471054839,-1.31
+kpneu,in,log-log WLS (weight = count),-1.1782859737522533,-1.31
+kpneu,in,log-log OLS (k seen in >= 2 nodes),-1.0984770471054845,-1.31
 kpneu,in,log-log OLS on cumulative,-2.3499872238712856,-1.31
 kpneu,in,MLE (kmin = 1),-1.5858507801069583,-1.31
 kpneu,in,MLE (kmin by KS),-1.7464925041452208,-1.31
-kpneu,in,log-log OLS (log-binned),-1.674954698186403,-1.31
+kpneu,in,log-log OLS (log-binned),-1.6749546981864036,-1.31
 kpneu,in,MLE bounded (= Poisson GLM),-1.4002227111375614,-1.31
-kpneu,out,log-log OLS,-1.4734998191587707,-1.47
+kpneu,out,log-log OLS,-1.473499819158771,-1.47
 kpneu,out,log-log WLS (weight = count),-1.1315193079607107,-1.47
 kpneu,out,log-log OLS (k seen in >= 2 nodes),-1.247165292682384,-1.47
-kpneu,out,log-log OLS on cumulative,-2.5430736122649074,-1.47
+kpneu,out,log-log OLS on cumulative,-2.543073612264907,-1.47
 kpneu,out,MLE (kmin = 1),-1.5499650020730378,-1.47
 kpneu,out,MLE (kmin by KS),-1.7534551034590524,-1.47
-kpneu,out,log-log OLS (log-binned),-1.8267269769936547,-1.47
+kpneu,out,log-log OLS (log-binned),-1.8267269769936558,-1.47
 kpneu,out,MLE bounded (= Poisson GLM),-1.3025342599948389,-1.47
-scer,total,log-log OLS,-0.992948834401067,-0.99
-scer,total,log-log WLS (weight = count),-0.8955339063351784,-0.99
+scer,total,log-log OLS,-0.9929488344010657,-0.99
+scer,total,log-log WLS (weight = count),-0.895533906335178,-0.99
 scer,total,log-log OLS (k seen in >= 2 nodes),-0.8585976360863901,-0.99
-scer,total,log-log OLS on cumulative,-2.1104769014307907,-0.99
+scer,total,log-log OLS on cumulative,-2.110476901430789,-0.99
 scer,total,MLE (kmin = 1),-1.3483823208400056,-0.99
 scer,total,MLE (kmin by KS),-1.6832570803411007,-0.99
-scer,total,log-log OLS (log-binned),-1.104342911496912,-0.99
+scer,total,log-log OLS (log-binned),-1.1043429114969117,-0.99
 scer,total,MLE bounded (= Poisson GLM),-1.0035575283379168,-0.99
-scer,in,log-log OLS,-1.0895708703421207,-1.08
+scer,in,log-log OLS,-1.0895708703421205,-1.08
 scer,in,log-log WLS (weight = count),-1.0390617337942174,-1.08
-scer,in,log-log OLS (k seen in >= 2 nodes),-0.9796473251519549,-1.08
-scer,in,log-log OLS on cumulative,-2.1636253218322645,-1.08
+scer,in,log-log OLS (k seen in >= 2 nodes),-0.9796473251519546,-1.08
+scer,in,log-log OLS on cumulative,-2.163625321832264,-1.08
 scer,in,MLE (kmin = 1),-1.4897298515899704,-1.08
 scer,in,MLE (kmin by KS),-1.7486444670556345,-1.08
-scer,in,log-log OLS (log-binned),-1.3454573276031936,-1.08
+scer,in,log-log OLS (log-binned),-1.3454573276031945,-1.08
 scer,in,MLE bounded (= Poisson GLM),-1.2285489628723258,-1.08
 scer,out,log-log OLS,-1.162409272917951,-1.16
-scer,out,log-log WLS (weight = count),-0.9560353012149311,-1.16
-scer,out,log-log OLS (k seen in >= 2 nodes),-1.017959727137416,-1.16
-scer,out,log-log OLS on cumulative,-2.250244724359928,-1.16
+scer,out,log-log WLS (weight = count),-0.9560353012149307,-1.16
+scer,out,log-log OLS (k seen in >= 2 nodes),-1.0179597271374157,-1.16
+scer,out,log-log OLS on cumulative,-2.250244724359929,-1.16
 scer,out,MLE (kmin = 1),-1.4462041981238436,-1.16
 scer,out,MLE (kmin by KS),-2.2624240506756013,-1.16
-scer,out,log-log OLS (log-binned),-1.2935726588734626,-1.16
+scer,out,log-log OLS (log-binned),-1.2935726588734633,-1.16
 scer,out,MLE bounded (= Poisson GLM),-1.1621865478289033,-1.16

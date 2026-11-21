@@ -41,14 +41,15 @@ def fig2_axes(axes5, legend_ax, degs, truncate=True):
         for j, kind in enumerate(T.KINDS):
             g = trunc2(gam[kind]) if truncate else gam[kind]
             ax.text(0.97, 0.95 - 0.095 * j, rf"$\gamma$ ({kind}) = {g:.2f}".replace("-", "−"),
-                    transform=ax.transAxes, ha="right", va="top", color=T.KIND_STYLE[kind]["color"],
-                    fontsize=8.5, fontweight="medium")
-        ax.text(0.04, 0.05, "abcde"[i], transform=ax.transAxes, fontsize=11, fontweight="semibold", color=T.INK)
-        ax.text(0.14, 0.05, data.NAME[key], transform=ax.transAxes, fontsize=10, style="italic", color=T.INK)
+                    transform=ax.transAxes, ha="right", va="top", color="black",
+                    fontsize=8.5)
+        ax.text(0.04, 0.05, "abcde"[i], transform=ax.transAxes, fontsize=11)
+        ax.text(0.14, 0.05, data.NAME[key], transform=ax.transAxes, fontsize=10, style="italic")
         if i in (0, 3):
             ax.set_ylabel("Pr(k)")
         if i in (2, 3, 4):
             ax.set_xlabel("degree (k)")
+    T.square(*axes5)
     legend_ax.axis("off")
     h = [Line2D([], [], color=T.KIND_STYLE[k]["color"], marker=T.KIND_STYLE[k]["marker"], ls="", ms=5,
                 label=T.KIND_STYLE[k]["label"]) for k in T.KINDS]
@@ -56,20 +57,20 @@ def fig2_axes(axes5, legend_ax, degs, truncate=True):
     legend_ax.legend(handles=h, loc="center", fontsize=9)
 
 
-def compare_with_original(degs, title, subtitle, caption, path):
-    """Original Fig. 2 (extracted from the paper PDF) next to our recreation, deck-style."""
+def compare_with_original(degs, path, show_original=True):
+    """Original Fig. 2 (extracted from the paper PDF) next to our recreation."""
     orig = mpimg.imread(T.ASSETS / "original_figure2_from_paper.png")
-    fig = plt.figure(figsize=(16.5, 6.4))
-    sf = fig.subfigures(1, 2, wspace=0.02)
-    ax = sf[0].subplots()
-    ax.imshow(orig); ax.axis("off")
-    sf[0].suptitle("Original", x=0.02, ha="left", fontsize=15, fontweight="medium", color=T.BLUE)
-    sf[0].text(0.02, 0.905, "Kim et al. 2019, Fig. 2 (extracted from the paper PDF)", fontsize=9, color=T.MUTED)
-    axs = sf[1].subplots(2, 3, gridspec_kw=dict(wspace=0.4, hspace=0.3)).ravel()
+    if show_original:
+        fig = plt.figure(figsize=(16.5, 6.4))
+        sf = fig.subfigures(1, 2, wspace=0.02)
+        ax = sf[0].subplots()
+        ax.imshow(orig); ax.axis("off")
+        right = sf[1]
+    else:
+        fig = plt.figure(figsize=(8.5, 6.4))
+        right = fig
+    axs = right.subplots(2, 3, gridspec_kw=dict(wspace=0.4, hspace=0.3)).ravel()
     fig2_axes(axs[:5], axs[5], degs)
-    sf[1].suptitle(title, x=0.02, ha="left", fontsize=15, fontweight="medium", color=T.BLUE)
-    sf[1].text(0.02, 0.905, subtitle, fontsize=9, color=T.MUTED)
-    fig.text(0.02, -0.02, caption, fontsize=9.5, color=T.INK, va="top", linespacing=1.5)
     fig.savefig(path)
     return fig
 
@@ -86,7 +87,7 @@ TIER_COLOR = {
 
 def tier_figure(key, tier_degs, path=None):
     """One organism: total / in / out degree distributions under every filtering tier."""
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 6.2), sharey=True)
     for ax, kind in zip(axes, T.KINDS):
         _style_axes(ax, xlim=(0.8, 2e3), ylim=(1e-4, 1.5))
         for name, D in tier_degs.items():
@@ -102,9 +103,10 @@ def tier_figure(key, tier_degs, path=None):
             ax.plot([], [], color=c, lw=2, label=rf"{name}  ($\gamma$ = {g:.2f})".replace("-", "−"))
         ax.set_title(T.KIND_STYLE[kind]["label"], loc="left")
         ax.set_xlabel("degree (k)")
-        ax.legend(loc="lower left", fontsize=7.5, handlelength=1.4)
+        ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.2), fontsize=7.5, handlelength=1.4)
+        T.square(ax)
     axes[0].set_ylabel("Pr(k)")
-    fig.suptitle(f"{data.NAME[key]} ({data.MODEL[key]})", x=0.01, ha="left", fontsize=14, fontweight="medium", color=T.BLUE, y=1.02)
+    fig.suptitle(f"{data.NAME[key]} ({data.MODEL[key]})", x=0.01, ha="left", fontsize=14, y=1.02)
     fig.tight_layout()
     if path:
         fig.savefig(path)
@@ -113,7 +115,7 @@ def tier_figure(key, tier_degs, path=None):
 
 def two_panel(degs_left, degs_right, titles, kmins=(1, 1), path=None, xlim=(0.8, 2e3), suptitle=None):
     """E. coli comparison used by Test 1 (currency excluded/included) and Test 2 (k>=1 / k>=10)."""
-    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.4), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.5, 4.4), sharey=True)
     out = []
     for ax, D, ttl, km in zip(axes, (degs_left, degs_right), titles, kmins):
         _style_axes(ax, xlim=xlim, ylim=(5e-4, 1.0))
@@ -125,14 +127,15 @@ def two_panel(degs_left, degs_right, titles, kmins=(1, 1), path=None, xlim=(0.8,
                                   label=rf"{kind.capitalize()}: $\gamma$ = {gam[kind]:.2f}".replace("-", "−")))
         if km > 1:
             ax.axvline(km, color=T.MUTED, ls=":", lw=1)
-            ax.text(km * 1.08, 0.78, f"fit k ≥ {km}", fontsize=8, color=T.MUTED)
+            ax.text(km * 1.08, 0.78, f"fit k ≥ {km}", fontsize=8)
         ax.set_title(ttl, loc="left")
         ax.set_xlabel("degree k")
         ax.legend(handles=handles, loc="upper right", fontsize=8.5)
+        T.square(ax)
         out.append(gam)
     axes[0].set_ylabel("Pr(k)")
     if suptitle:
-        fig.suptitle(suptitle, x=0.01, ha="left", fontsize=13, fontweight="medium", color=T.BLUE, y=1.03)
+        fig.suptitle(suptitle, x=0.01, ha="left", fontsize=13, y=1.03)
     fig.tight_layout()
     if path:
         fig.savefig(path)
@@ -144,14 +147,14 @@ def currency_schematic(path=None):
     fig, ax = plt.subplots(figsize=(8, 2.2))
     ax.axis("off"); ax.set_xlim(0, 10); ax.set_ylim(0, 3)
     for x, s, c in [(1.2, "A", T.TEAL), (5, "ATP", T.AMBER), (8.8, "B", T.TEAL)]:
-        ax.text(x, 1.6, s, ha="center", va="center", fontsize=26 if s != "ATP" else 24, fontweight="semibold", color=c)
+        ax.text(x, 1.6, s, ha="center", va="center", fontsize=26 if s != "ATP" else 24)
     for x0, x1 in [(1.9, 4.0), (6.0, 8.1)]:
         ax.annotate("", xy=(x1, 1.6), xytext=(x0, 1.6), arrowprops=dict(arrowstyle="-|>", color=T.MUTED, lw=1.6))
-    ax.text(1.2, 2.6, "Reaction A\nproduces ATP", ha="center", va="center", fontsize=9, color=T.INK)
-    ax.text(8.8, 2.6, "Reaction B\nconsumes ATP", ha="center", va="center", fontsize=9, color=T.INK)
+    ax.text(1.2, 2.6, "Reaction A\nproduces ATP", ha="center", va="center", fontsize=9)
+    ax.text(8.8, 2.6, "Reaction B\nconsumes ATP", ha="center", va="center", fontsize=9)
     ax.annotate("", xy=(8.4, 0.55), xytext=(1.6, 0.55), arrowprops=dict(arrowstyle="-|>", color=T.BLUE, lw=1.6, ls="--",
                 connectionstyle="arc3,rad=0"))
-    ax.text(5, 0.12, "if ATP may create links, the graph gains the arc A → B", ha="center", fontsize=9, color=T.BLUE)
+    ax.text(5, 0.12, "if ATP may create links, the graph gains the arc A → B", ha="center", fontsize=9)
     if path:
         fig.savefig(path)
     return fig
@@ -164,7 +167,7 @@ KIND_COL = {k: T.KIND_STYLE[k]["color"] for k in T.KINDS}
 def gamma_by_method(table, path=None, delta=False):
     """table: DataFrame with columns organism(key), kind, method, gamma, paper. One facet per organism."""
     methods = list(R.ESTIMATORS)
-    fig, axes = plt.subplots(2, 3, figsize=(15, 8.2), sharey=True)
+    fig, axes = plt.subplots(2, 3, figsize=(13, 8.2), sharey=True)
     axes = axes.ravel()
     for ax, key in zip(axes, data.KEYS):
         sub = table[table.organism == key]
@@ -180,6 +183,7 @@ def gamma_by_method(table, path=None, delta=False):
             ax.axvline(0, color=T.INK, ls="--", lw=1)
         ax.set_yticks(range(len(methods)))
         ax.set_yticklabels(methods, fontsize=8.5)
+        T.square(ax)
         ax.invert_yaxis()
         ax.set_title(data.NAME[key], loc="left")
         ax.set_xlabel("γ − published" if delta else "γ")
@@ -188,7 +192,7 @@ def gamma_by_method(table, path=None, delta=False):
     if not delta:
         h.append(Line2D([], [], color=T.MUTED, ls="--", lw=1, label="published (Fig. 2)"))
     axes[5].legend(handles=h, title="degree", loc="center left", fontsize=10, title_fontsize=10)
-    fig.tight_layout()
+    fig.tight_layout(w_pad=0.2)
     if path:
         fig.savefig(path)
     return fig
@@ -202,7 +206,7 @@ MODEL_COLOR = {
 
 
 def fits_by_model(key, degs, path=None):
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4.6), sharey=True)
     for ax, kind in zip(axes, T.KINDS):
         _style_axes(ax, xlim=(0.8, 400), ylim=(1e-4, 1.5))
         k, p = graph.degree_distribution(degs[kind])
@@ -213,10 +217,13 @@ def fits_by_model(key, degs, path=None):
             ax.plot(x[ok], y[ok], color=MODEL_COLOR[name], lw=1.6, label=name, zorder=3)
         ax.set_title(st["label"], loc="left")
         ax.set_xlabel("degree (k)")
+        T.square(ax)
     axes[0].set_ylabel("Pr(k)")
-    axes[2].legend(loc="upper right", fontsize=7.5, title="model", title_fontsize=8)
-    fig.suptitle(data.NAME[key], x=0.01, ha="left", fontsize=14, fontweight="medium", color=T.BLUE, y=1.02)
+    axes[2].legend(loc="center left", bbox_to_anchor=(1.05, 0.5), fontsize=8.5, title="model", title_fontsize=9)
     fig.tight_layout()
+    fig.suptitle(data.NAME[key], x=axes[0].get_position().x0, ha="left", va="bottom", fontsize=14,
+                 y=axes[0].get_position().y1 + 0.08)
+    
     if path:
         fig.savefig(path)
     return fig
@@ -238,7 +245,6 @@ def simulation_figure(sim, example_deg, true_alpha, path=None):
     ax.plot(ks, (ks ** -true_alpha) / np.sum(np.arange(1, 10001.0) ** -true_alpha), color=T.TEAL, lw=2, ls="--",
             label=rf"truth ($\gamma$ = −{true_alpha:.2f})".replace("\\u2212", "−"))
     ax.axhline(1 / len(example_deg), color=T.RED, ls=":", lw=1)
-    ax.text(1.1, 0.55 / len(example_deg), "floor: a degree seen once has Pr = 1/n", fontsize=7.5, color=T.RED)
     ax.set_title("One simulated network", loc="left"); ax.set_xlabel("degree (k)"); ax.set_ylabel("Pr(k)")
     ax.legend(loc="upper right", fontsize=8)
     for a, kmax in zip((fig.add_subplot(gs[1]), fig.add_subplot(gs[2])), sorted(sim.kmax.unique())):
@@ -251,6 +257,7 @@ def simulation_figure(sim, example_deg, true_alpha, path=None):
         a.set_title(f"True power law on k = 1…{kmax:,}", loc="left")
         a.set_xlabel("true exponent |γ|")
     fig.axes[1].set_ylabel("bias in |γ|  (estimate − truth)")
+    T.square(*fig.axes)
     fig.axes[2].legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=8.5, title="method (dashed = extra)", title_fontsize=8.5)
     fig.tight_layout()
     if path:
