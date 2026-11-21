@@ -1,0 +1,6 @@
+organism,supplement_nodes,nodes_found_in_model,supplement_arcs,arcs_shared,only_ours,only_theirs
+E. coli,1251,1247,9099,9058,1,0
+B. subtilis,748,748,6489,6489,0,0
+G. metallireducens,900,900,8049,8049,1,0
+K. pneumoniae,1137,1131,8084,7759,7,0
+S. cerevisiae,881,881,10460,10460,0,0

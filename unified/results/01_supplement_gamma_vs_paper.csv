@@ -1,0 +1,16 @@
+organism,degree,ours,truncated,rounded,paper,match_trunc,match_round
+E. coli,total,-1.2939,-1.29,-1.29,-1.29,True,True
+E. coli,in,-1.316,-1.31,-1.32,-1.32,False,True
+E. coli,out,-1.5,-1.5,-1.5,-1.5,True,True
+B. subtilis,total,-1.0377,-1.03,-1.04,-1.03,True,False
+B. subtilis,in,-1.101,-1.1,-1.1,-1.1,True,True
+B. subtilis,out,-1.1211,-1.12,-1.12,-1.12,True,True
+G. metallireducens,total,-1.0376,-1.03,-1.04,-1.03,True,False
+G. metallireducens,in,-1.1416,-1.14,-1.14,-1.14,True,True
+G. metallireducens,out,-1.1173,-1.11,-1.12,-1.11,True,False
+K. pneumoniae,total,-1.2171,-1.21,-1.22,-1.21,True,False
+K. pneumoniae,in,-1.3179,-1.31,-1.32,-1.31,True,False
+K. pneumoniae,out,-1.4735,-1.47,-1.47,-1.47,True,True
+S. cerevisiae,total,-0.9929,-0.99,-0.99,-0.99,True,True
+S. cerevisiae,in,-1.0896,-1.08,-1.09,-1.08,True,False
+S. cerevisiae,out,-1.1624,-1.16,-1.16,-1.16,True,True
