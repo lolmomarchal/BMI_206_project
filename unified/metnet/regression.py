@@ -59,8 +59,8 @@ def ols_ccdf(deg):
     return _wls(np.log10(k), np.log10(ccdf))[0] - 1
 
 
-def ols_logbin(deg, ratio=2.0):
-    """OLS on log-binned densities."""
+def logbin_fit(deg, ratio=2.0):
+    """(slope, intercept) of OLS on log-binned densities."""
     d = deg[deg > 0].astype(int)
     n = len(deg)
     edges = [1]
@@ -72,7 +72,12 @@ def ols_logbin(deg, ratio=2.0):
     width = np.diff(edges)
     ctr = np.sqrt(edges[:-1] * (edges[1:] - 1).clip(min=1))
     m = cnt > 0
-    return _wls(np.log10(ctr[m]), np.log10(cnt[m] / width[m] / n))[0]
+    return _wls(np.log10(ctr[m]), np.log10(cnt[m] / width[m] / n))
+
+
+def ols_logbin(deg, ratio=2.0):
+    """OLS on log-binned densities."""
+    return logbin_fit(deg, ratio)[0]
 
 
 def loglin(deg):
@@ -155,7 +160,7 @@ def gamma_table(deg, which=None):
 
 
 def fitted_curves(deg):
-    """Fitted Pr(k) curves for the deck's 7-model comparison. Returns {label: (k_grid, pk_grid)}.
+    """Fitted Pr(k) curves for the 10-model comparison (the deck's 7 + log-binned + bounded MLE). Returns {label: (k_grid, pk_grid)}.
     The semi-log and linear fits are not power laws and have no gamma, only a curve."""
     n = len(deg)
     k, c, p = _pk(deg)
@@ -172,7 +177,10 @@ def fitted_curves(deg):
     kmin, a = clauset(deg)
     g = grid[grid >= kmin]
     out["MLE (kmin by KS)"] = (g, ((deg >= kmin).sum() / n) * g ** -a / special.zeta(a, kmin))
-    return {kk: (x, y) for kk, (x, y) in out.items()}
+    s, b = logbin_fit(deg); out["log-log OLS (log-binned)"] = (grid, 10 ** (b + s * lg))
+    kmax = int(deg.max()); a = mle_alpha(deg, 1, kmax)
+    out["MLE bounded (= Poisson GLM)"] = (grid, (len(deg[deg > 0]) / n) * grid ** -a / np.sum(np.arange(1, kmax + 1.0) ** -a))
+    return out
 
 
 def cutoff_gamma(deg, kmin):

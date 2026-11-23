@@ -166,11 +166,11 @@ KIND_COL = {k: T.KIND_STYLE[k]["color"] for k in T.KINDS}
 
 def gamma_by_method(table, path=None, delta=False):
     """table: DataFrame with columns organism(key), kind, method, gamma, paper. One facet per organism."""
-    methods = list(R.ESTIMATORS)
+    methods = PLOT_METHODS
     fig, axes = plt.subplots(2, 3, figsize=(13, 8.2), sharey=True)
     axes = axes.ravel()
     for ax, key in zip(axes, data.KEYS):
-        sub = table[table.organism == key]
+        sub = table[(table.organism == key) & table.method.isin(methods)]
         ax.grid(True, axis="x", alpha=0.5); ax.set_axisbelow(True)
         for kind in T.KINDS:
             s = sub[sub.kind == kind]
@@ -202,19 +202,27 @@ MODEL_COLOR = {
     "log-log OLS": T.BLUE, "log-log WLS (weight = count)": T.TEAL,
     "log-log OLS (k seen in >= 2 nodes)": T.AMBER, "log-linear OLS (exponential)": T.RED,
     "linear OLS": T.PURPLE, "MLE (kmin = 1)": T.SKY, "MLE (kmin by KS)": "#7A5C3E",
+    "log-log OLS (log-binned)": "#D4619B", "MLE bounded (= Poisson GLM)": "#6B8E23",
 }
+# method order shared by the gamma-by-method and fits-by-model plots (cumulative OLS is not drawn);
+# the two non-power-law baselines (no gamma) come last
+PLOT_METHODS = [m for m in R.ESTIMATORS if m != "log-log OLS on cumulative"]
+BASELINES = ["log-linear OLS (exponential)", "linear OLS"]
 
 
-def fits_by_model(key, degs, path=None):
+def fits_by_model(key, degs, path=None, show_fits=True):
+    """show_fits=False: points + legend only (fit lines omitted but kept in the legend), same layout."""
     fig, axes = plt.subplots(1, 3, figsize=(12, 4.6), sharey=True)
     for ax, kind in zip(axes, T.KINDS):
         _style_axes(ax, xlim=(0.8, 400), ylim=(1e-4, 1.5))
         k, p = graph.degree_distribution(degs[kind])
         st = T.KIND_STYLE[kind]
         ax.scatter(k, p, s=16, color=st["color"], marker=st["marker"], zorder=4, linewidths=0)
-        for name, (x, y) in R.fitted_curves(degs[kind]).items():
+        curves = R.fitted_curves(degs[kind])
+        for name in PLOT_METHODS + BASELINES:
+            x, y = curves[name]
             ok = y > 0
-            ax.plot(x[ok], y[ok], color=MODEL_COLOR[name], lw=1.6, label=name, zorder=3)
+            ax.plot(x[ok] if show_fits else [], y[ok] if show_fits else [], color=MODEL_COLOR[name], lw=1.6, label=name, zorder=3)
         ax.set_title(st["label"], loc="left")
         ax.set_xlabel("degree (k)")
         T.square(ax)

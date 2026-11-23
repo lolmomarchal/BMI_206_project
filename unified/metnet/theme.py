@@ -39,7 +39,7 @@ def apply():
         "axes.grid": False, "grid.color": GRID, "grid.linewidth": 0.6,
         "legend.frameon": False, "legend.fontsize": 8.5,
         "figure.facecolor": "white", "axes.facecolor": "white", "savefig.facecolor": "white",
-        "figure.dpi": 110, "savefig.dpi": 200, "savefig.bbox": "tight",
+        "figure.dpi": 110, "savefig.dpi": 720, "savefig.bbox": "tight",
         "mathtext.fontset": "dejavusans",
     })
 
