@@ -164,9 +164,12 @@ def currency_schematic(path=None):
 KIND_COL = {k: T.KIND_STYLE[k]["color"] for k in T.KINDS}
 
 
-def gamma_by_method(table, path=None, delta=False):
+CORE_METHODS = ["log-log OLS", "log-log WLS (weight = count)", "MLE (kmin = 1)", "linear OLS", "log-linear OLS (exponential)"]
+
+
+def gamma_by_method(table, path=None, delta=False, methods=None):
     """table: DataFrame with columns organism(key), kind, method, gamma, paper. One facet per organism."""
-    methods = PLOT_METHODS
+    methods = [m for m in (methods or PLOT_METHODS) if m in R.ESTIMATORS]   # linear/log-linear have no gamma
     fig, axes = plt.subplots(2, 3, figsize=(13, 8.2), sharey=True)
     axes = axes.ravel()
     for ax, key in zip(axes, data.KEYS):
@@ -210,7 +213,7 @@ PLOT_METHODS = [m for m in R.ESTIMATORS if m != "log-log OLS on cumulative"]
 BASELINES = ["log-linear OLS (exponential)", "linear OLS"]
 
 
-def fits_by_model(key, degs, path=None, show_fits=True):
+def fits_by_model(key, degs, path=None, show_fits=True, methods=None):
     """show_fits=False: points + legend only (fit lines omitted but kept in the legend), same layout."""
     fig, axes = plt.subplots(1, 3, figsize=(12, 4.6), sharey=True)
     for ax, kind in zip(axes, T.KINDS):
@@ -219,7 +222,7 @@ def fits_by_model(key, degs, path=None, show_fits=True):
         st = T.KIND_STYLE[kind]
         ax.scatter(k, p, s=16, color=st["color"], marker=st["marker"], zorder=4, linewidths=0)
         curves = R.fitted_curves(degs[kind])
-        for name in PLOT_METHODS + BASELINES:
+        for name in (methods or PLOT_METHODS + BASELINES):
             x, y = curves[name]
             ok = y > 0
             ax.plot(x[ok] if show_fits else [], y[ok] if show_fits else [], color=MODEL_COLOR[name], lw=1.6, label=name, zorder=3)
@@ -237,9 +240,9 @@ def fits_by_model(key, degs, path=None, show_fits=True):
     return fig
 
 
-def simulation_figure(sim, example_deg, true_alpha, path=None):
-    methods = list(R.ESTIMATORS)
-    col = {m: c for m, c in zip(methods, T.CAT)}
+def simulation_figure(sim, example_deg, true_alpha, path=None, methods=None):
+    col = {m: MODEL_COLOR.get(m, c) for m, c in zip(R.ESTIMATORS, T.CAT)}   # same colours as fits_by_model
+    methods = [m for m in (methods or R.ESTIMATORS) if m in R.ESTIMATORS]
     fig = plt.figure(figsize=(16, 4.8))
     gs = fig.add_gridspec(1, 3, width_ratios=[1.05, 1, 1])
     ax = fig.add_subplot(gs[0])
@@ -250,7 +253,7 @@ def simulation_figure(sim, example_deg, true_alpha, path=None):
     xs = np.array([k.min(), k.max()])
     ax.plot(xs, 10 ** (b + g * np.log10(xs)), color=T.BLUE, lw=2, label=rf"paper-style OLS ($\gamma$ = {g:.2f})".replace("-", "−"))
     ks = np.array([1, 1e4])
-    ax.plot(ks, (ks ** -true_alpha) / np.sum(np.arange(1, 10001.0) ** -true_alpha), color=T.TEAL, lw=2, ls="--",
+    ax.plot(ks, (ks ** -true_alpha) / np.sum(np.arange(1, 10001.0) ** -true_alpha), color="black", lw=2, ls="--",
             label=rf"truth ($\gamma$ = −{true_alpha:.2f})".replace("\\u2212", "−"))
     ax.axhline(1 / len(example_deg), color=T.RED, ls=":", lw=1)
     ax.set_title("One simulated network", loc="left"); ax.set_xlabel("degree (k)"); ax.set_ylabel("Pr(k)")
@@ -266,7 +269,7 @@ def simulation_figure(sim, example_deg, true_alpha, path=None):
         a.set_xlabel("true exponent |γ|")
     fig.axes[1].set_ylabel("bias in |γ|  (estimate − truth)")
     T.square(*fig.axes)
-    fig.axes[2].legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=8.5, title="method (dashed = extra)", title_fontsize=8.5)
+    fig.axes[2].legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=8.5, title="method (dashed = extra)" if any(not R.ESTIMATORS[m][1] for m in methods) else "method", title_fontsize=8.5)
     fig.tight_layout()
     if path:
         fig.savefig(path)
